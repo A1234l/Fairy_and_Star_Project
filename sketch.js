@@ -29,16 +29,11 @@ function setup() {
 	star.addImage(starImg);
 	star.scale = 0.2;
 
-	// star.x = fairy.position.x;
-	// star.y = fairy.position.y;
-
 	engine = Engine.create();
 	world = engine.world;
 
 	starBody = Bodies.circle(650 , 30 , 5 , {restitution:0.5, isStatic:true});
 	World.add(world, starBody);
-	
-	Matter.Body.setStatic(starBody,false);
 
 	Engine.run(engine);
 
@@ -50,8 +45,12 @@ function draw() {
   Engine.update(engine);
 
 	if(starBody.position.y > 470){
-		starBody.velocityY = 0;
+		// starBody.velocityY = 0;
+		Matter.Body.setStatic(starBody,true);
 	}
+
+	star.x = starBody.position.x;
+	star.y = starBody.position.y;
 
   drawSprites();
 
@@ -68,6 +67,7 @@ function keyPressed() {
 	}
 
 	if(keyCode === DOWN_ARROW){
-		starBody.velocityY = 10;
+		// starBody.velocityY = 10;
+		Matter.Body.setStatic(starBody,false);
 	}
 }
